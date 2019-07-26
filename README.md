@@ -1,4 +1,48 @@
-# express-ws [![Dependency Status](https://snyk.io/test/github/henningm/express-ws/badge.svg)](https://snyk.io/test/github/henningm/express-ws)
+# express-ws [![Dependency Status](https://snyk.io/test/github/aral/express-ws/badge.svg)](https://snyk.io/test/github/aral/express-ws)
+
+__This fork uses `require()` instead of ES6 imports.__
+
+You should probably [use the upstream](https://github.com/HenningM/express-ws) (it’s awesome; thank you, [Henning](https://github.com/HenningM)).
+
+---
+
+Still here? OK, so here’s why I hacked together this fork:
+
+  - I needed to include it from my fork ([for reasons](https://github.com/HenningM/express-ws/pull/122))
+  - [The build process wasn’t documented](https://github.com/HenningM/express-ws/issues/123).
+  - I don’t want to use Babel and add a build process for a simple library.
+  - Without Babel it was causing errors in [Nexe](https://github.com/nexe/nexe) due to the additional complexity in module loading.
+  - ES6 imports in Node.js… Y, tho?
+
+If these are not concerns for you, please [head on over to the upstream](https://github.com/HenningM/express-ws). If you `npm install` it instead of including it from source, the issues I outlined above should not affect you.
+
+If you do want to include this fork in your project instead of the upstream, in your _package.json_:
+
+```json
+"dependencies": {
+    "express-ws": "github:aral/express-ws"
+  },
+```
+
+In addition to using `require()` instead of ES6 imports, this fork also enables you to access the WebSocket Server instance and the Express app instance from within routes via `this`:
+
+```js
+app.ws('/chat', function(ws, req) {
+
+  ws.on('message', message => {
+    this.getWss('/chat').clients.forEach(client => {
+      client.send(message)
+    })
+  })
+
+});
+```
+
+See [the Chat example](examples/chat.js) for a demonstration.
+
+We now return to the regular upstream documentation…
+
+---
 
 [WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API) endpoints for [Express](http://expressjs.com/) applications. Lets you define WebSocket endpoints like any other type of route, and applies regular Express middleware. The WebSocket support is implemented with the help of the [ws](https://github.com/websockets/ws) library.
 

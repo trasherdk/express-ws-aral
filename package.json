@@ -1,11 +1,10 @@
 {
   "name": "express-ws",
-  "version": "5.0.0",
-  "description": "WebSocket endpoints for Express applications",
+  "version": "6.0.0",
+  "description": "WebSocket endpoints for Express applications (require version)",
   "main": "index",
   "module": "src/index",
   "scripts": {
-    "lint": "eslint src/"
   },
   "author": "Henning Morud <henning@morud.org>",
   "contributors": [
@@ -15,18 +14,18 @@
     "Nicholas Schell <nschell@gmail.com>",
     "Max Truxa <dev@maxtruxa.com>",
     "Kræn Hansen <mail@kraenhansen.dk>",
-    "Alexis Tyler <xo@wvvw.me>"
+    "Alexis Tyler <xo@wvvw.me>",
+    "Aral Balkan <mail@ar.al>"
   ],
   "license": "BSD-2-Clause",
   "dependencies": {
-    "esm": "^3.0.84",
     "ws": "^6.0.0"
   },
   "peerDependencies": {
     "express": "^4.0.0 || ^5.0.0-alpha.1"
   },
   "engines": {
-    "node": ">=4.5.0"
+    "node": ">=6.5.0"
   },
   "directories": {
     "example": "examples"
@@ -45,9 +44,6 @@
   },
   "homepage": "https://github.com/HenningM/express-ws",
   "devDependencies": {
-    "eslint": "^4.19.0",
-    "eslint-config-airbnb": "^14.1.0",
-    "eslint-plugin-import": "^2.12.0",
     "express": "^5.0.0-alpha.6"
   }
 }

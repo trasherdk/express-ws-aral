@@ -1,4 +1,4 @@
-export default function wrapMiddleware(middleware) {
+module.exports = function wrapMiddleware(middleware) {
   return (req, res, next) => {
     if (req.ws !== null && req.ws !== undefined) {
       req.wsHandled = true;

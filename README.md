@@ -12,7 +12,7 @@ Still here? OK, so here’s why I hacked together this fork:
   - [The build process wasn’t documented](https://github.com/HenningM/express-ws/issues/123).
   - I don’t want to use Babel and add a build process for a simple library.
   - Without Babel it was causing errors in [Nexe](https://github.com/nexe/nexe) due to the additional complexity in module loading.
-  - ES6 imports in Node.js… Y, tho?
+  - ES6 imports in Node.js… Y, tho? :)
 
 If these are not concerns for you, please [head on over to the upstream](https://github.com/HenningM/express-ws). If you `npm install` it instead of including it from source, the issues I outlined above should not affect you.
 
@@ -20,8 +20,8 @@ If you do want to include this fork in your project instead of the upstream, in 
 
 ```json
 "dependencies": {
-    "express-ws": "github:aral/express-ws"
-  },
+  "express-ws": "github:aral/express-ws"
+}
 ```
 
 In addition to using `require()` instead of ES6 imports, this fork also enables you to access the WebSocket Server instance and the Express app instance from within routes via `this`:

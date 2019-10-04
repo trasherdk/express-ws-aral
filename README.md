@@ -27,18 +27,19 @@ If you do want to include this fork in your project instead of the upstream, in 
 In addition to using `require()` instead of ES6 imports, this fork also enables you to access the WebSocket Server instance and the Express app instance from within routes via `this`:
 
 ```js
-app.ws('/chat', function(ws, req) {
+app.ws('/broadcast', function(ws, req) {
 
   ws.on('message', message => {
-    this.getWss('/chat').clients.forEach(client => {
+    this.getWss().clients.forEach(client => {
       client.send(message)
     })
   })
 
-});
+})
 ```
+Note that if you have multiple web socket routes, the above example will broadcast the message to all clients, not just those connected to the `/broadcast` route.
 
-See [the Chat example](examples/chat.js) for a demonstration.
+To see a demonstration of broadcasting selectively to a subset of clients (e.g., to create “rooms”), please see [the Chat example](examples/chat.js).
 
 We now return to the regular upstream documentation…
 

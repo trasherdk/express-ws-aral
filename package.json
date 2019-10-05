@@ -1,7 +1,7 @@
 {
-  "name": "express-ws",
-  "version": "6.0.0",
-  "description": "WebSocket endpoints for Express applications (require version)",
+  "name": "@small-tech/express-ws",
+  "version": "1.0.0",
+  "description": "Fork of express-ws. WebSocket endpoints for Express applications (uses require instead of import, binds routes to the web socket instance, and has high-level support for broadcast client filtering/“room” support).",
   "main": "index",
   "module": "src/index",
   "scripts": {
@@ -17,7 +17,7 @@
     "Alexis Tyler <xo@wvvw.me>",
     "Aral Balkan <mail@ar.al>"
   ],
-  "license": "BSD-2-Clause",
+  "license": "Portions AGPL-3.0-or-later; portions BSD-2-Clause",
   "dependencies": {
     "ws": "^6.0.0"
   },
@@ -32,7 +32,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/HenningM/express-ws"
+    "url": "https://github.com/aral/express-ws"
   },
   "keywords": [
     "express",
@@ -40,9 +40,9 @@
     "websocket"
   ],
   "bugs": {
-    "url": "https://github.com/HenningM/express-ws/issues"
+    "url": "https://github.com/aral/express-ws/issues"
   },
-  "homepage": "https://github.com/HenningM/express-ws",
+  "homepage": "https://github.com/aral/express-ws",
   "devDependencies": {
     "express": "^5.0.0-alpha.6"
   }

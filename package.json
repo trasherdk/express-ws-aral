@@ -18,7 +18,7 @@
   ],
   "license": "Portions AGPL-3.0-or-later; portions BSD-2-Clause",
   "dependencies": {
-    "ws": "^6.0.0"
+    "ws": "^7.2.1"
   },
   "peerDependencies": {
     "express": "^4.0.0 || ^5.0.0-alpha.1"

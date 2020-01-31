@@ -1,6 +1,6 @@
 {
   "name": "@small-tech/express-ws",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Fork of express-ws. WebSocket endpoints for Express applications (uses require instead of import, binds routes to the web socket instance, and has high-level support for broadcast client filtering/“room” support).",
   "main": "index",
   "module": "src/index",

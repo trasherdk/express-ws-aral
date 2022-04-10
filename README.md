@@ -170,6 +170,32 @@ This property contains the `app` that `express-ws` was set up on.
 
 Returns the underlying WebSocket server/handler. You can use `wsInstance.getWss().clients` to obtain a list of all the connected WebSocket clients for this server.
 
+Note that this list will include *all* clients, not just those for a specific route - this means that it's often *not* a good idea to use this for broadcasts, for example. For broadcasts, use the `setRoom()` and `broadcast()` methods as shown in the [chat example](examples/chat.js):
+
+```javascript
+const express = require('express');
+const expressWs = require('express-ws')(express());
+
+const app = expressWs.app;
+
+function roomHandler(client, request) {
+  client.room = this.setRoom(request);
+  console.log(`New client connected to ${client.room}`);
+
+  client.on('message', (message) => {
+    const numberOfRecipients = this.broadcast(client, message);
+    console.log(`${client.room} message broadcast to ${numberOfRecipients} recipient${numberOfRecipients === 1 ? '' : 's'}.`);
+  });
+}
+
+app.ws('/room1', roomHandler);
+app.ws('/room2', roomHandler);
+
+app.listen(3000, () => {
+  console.log('\nChat server running on http://localhost:3000\n\nFor Room 1, connect to http://localhost:3000/room1\nFor Room 2, connect to http://localhost:3000/room2\n');
+});
+```
+
 ### wsInstance.applyTo(router)
 
 Sets up `express-ws` on the given `router` (or other Router-like object). You will only need this in two scenarios:
@@ -178,3 +204,12 @@ Sets up `express-ws` on the given `router` (or other Router-like object). You wi
 2. You are using a custom router that is not based on the express.Router prototype.
 
 In most cases, you won't need this at all.
+
+### A note on route scope
+
+Routes are bound to the wsInstance so you can access `.getWss()`, `.setRoom()`, `.broadcast()` and `.app` via `this` in your routes even if the original wsInstance is not in scope (e.g., if you have your routes defined in external files).
+
+## Development
+
+This module is written in ES6 and uses ESM.
+

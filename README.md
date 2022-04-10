@@ -1,4 +1,4 @@
-# @small-tech/express-ws (fork)
+# @small-tech/express-ws [(link to upstream of this fork)](https://github.com/aral/express-ws)
 
 __This fork uses native Node `require`s (CommonJS) instead of [upstream](https://github.com/HenningM/express-ws)’s ES6 imports (ESM).__
 

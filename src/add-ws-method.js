@@ -1,7 +1,7 @@
-import wrapMiddleware from './wrap-middleware';
-import websocketUrl from './websocket-url';
+const wrapMiddleware = require('./wrap-middleware');
+const websocketUrl = require('./websocket-url');
 
-export default function addWsMethod(target, self) {
+module.exports = function addWsMethod(target, self) {
   /* This prevents conflict with other things setting `.ws`. */
   if (target.ws === null || target.ws === undefined) {
     target.ws = function addWsRoute(route, ...middlewares) {

@@ -1,9 +1,10 @@
 {
-  "name": "express-ws",
-  "version": "5.0.0",
-  "description": "WebSocket endpoints for Express applications",
+  "name": "@small-tech/express-ws",
+  "version": "1.0.1",
+  "description": "Fork of express-ws. WebSocket endpoints for Express applications (uses require instead of import, binds routes to the web socket instance, and has high-level support for broadcast client filtering/“room” support).",
   "main": "index",
   "module": "src/index",
+
   "scripts": {
     "lint": "eslint src/ && eslint examples/"
   },
@@ -15,25 +16,25 @@
     "Nicholas Schell <nschell@gmail.com>",
     "Max Truxa <dev@maxtruxa.com>",
     "Kræn Hansen <mail@kraenhansen.dk>",
-    "Alexis Tyler <xo@wvvw.me>"
+    "Alexis Tyler <xo@wvvw.me>",
+    "Aral Balkan <mail@ar.al>"
   ],
-  "license": "BSD-2-Clause",
+  "license": "Portions AGPL-3.0-or-later; portions BSD-2-Clause",
   "dependencies": {
-    "esm": "^3.0.84",
-    "ws": "^6.0.0"
+    "ws": "^7.2.1"
   },
   "peerDependencies": {
     "express": "^4.0.0 || ^5.0.0-alpha.1"
   },
   "engines": {
-    "node": ">=4.5.0"
+    "node": ">=6.5.0"
   },
   "directories": {
     "example": "examples"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/HenningM/express-ws"
+    "url": "https://github.com/aral/express-ws"
   },
   "keywords": [
     "express",
@@ -41,13 +42,10 @@
     "websocket"
   ],
   "bugs": {
-    "url": "https://github.com/HenningM/express-ws/issues"
+    "url": "https://github.com/aral/express-ws/issues"
   },
-  "homepage": "https://github.com/HenningM/express-ws",
+  "homepage": "https://github.com/aral/express-ws",
   "devDependencies": {
-    "eslint": "^4.19.0",
-    "eslint-config-airbnb": "^14.1.0",
-    "eslint-plugin-import": "^2.12.0",
     "express": "^5.0.0-alpha.6"
   }
 }

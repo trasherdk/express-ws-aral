@@ -1,4 +1,82 @@
-# express-ws [![Dependency Status](https://snyk.io/test/github/henningm/express-ws/badge.svg)](https://snyk.io/test/github/henningm/express-ws)
+# @small-tech/express-ws (fork)
+
+__This fork uses native Node `require`s (CommonJS) instead of [upstream](https://github.com/HenningM/express-ws)’s ES6 imports (ESM).__
+
+Please note that I’ve contributed all changes in this fork (apart from the ESM → CommonJS changes) back upstream in the following unmerged [pull request](https://github.com/HenningM/express-ws/pull/122).
+
+Here’s why [I](https://ar.al) hacked together this fork:
+
+  - I needed to include [my changes](https://github.com/HenningM/express-ws/pull/122) from my git repository.
+  - To do so, I needed to build it and [the build process wasn’t documented](https://github.com/HenningM/express-ws/issues/123).
+  - I don’t want to use Babel and add a build process for a simple library.
+  - Without Babel it was causing errors in [Nexe](https://github.com/nexe/nexe) due to the additional complexity in module loading.
+  - ES6 imports in Node.js… Y, tho? :)
+
+If these are not concerns for you, and if you don’t need references to the WebSocket instance from your routes or broadcast client filtering (“room” functionality), please [head on over to the upstream](https://github.com/HenningM/express-ws). If you `npm install` it instead of including it from source, the issues I outlined above should not affect you.
+
+## Install
+
+```shell
+npm install @small-tech/express-ws
+```
+
+## Details
+
+In addition to using `require()` instead of ES6 imports, this fork also enables you to access the WebSocket Server instance and the Express app instance from within routes via `this`:
+
+```js
+app.ws('/broadcast', function(ws, req) {
+
+  ws.on('message', message => {
+    this.getWss().clients.forEach(client => {
+      client.send(message)
+    })
+  })
+})
+```
+Note that if you have multiple web socket routes, the above example will broadcast the message to all clients, not just those connected to the `/broadcast` route.
+
+Note that this list will include *all* clients, not just those for a specific route - this means that it's often *not* a good idea to use this for broadcasts, for example. For broadcasts, use the `setRoom()` and `broadcast()` methods as shown in the [chat example](examples/chat.js):
+
+```javascript
+const express = require('express');
+const expressWs = require('express-ws')(express());
+
+const app = expressWs.app;
+
+function roomHandler(client, request) {
+  client.room = this.setRoom(request);
+  console.log(`New client connected to ${client.room}`);
+
+  client.on('message', (message) => {
+    const numberOfRecipients = this.broadcast(client, message);
+    console.log(`${client.room} message broadcast to ${numberOfRecipients} recipient${numberOfRecipients === 1 ? '' : 's'}.`);
+  });
+}
+
+app.ws('/room1', roomHandler);
+app.ws('/room2', roomHandler);
+
+app.listen(3000, () => {
+  console.log('\nChat server running on http://localhost:3000\n\nFor Room 1, connect to http://localhost:3000/room1\nFor Room 2, connect to http://localhost:3000/room2\n');
+});
+```
+
+## A note on route scope
+
+Routes are bound to the wsInstance so you can access `.getWss()`, `.setRoom()`, `.broadcast()` and `.app` via `this` in your routes even if the original wsInstance is not in scope (e.g., if you have your routes defined in external files).
+
+## Development
+
+This module is written in ES6 and uses native Node.js requires (CommonJS) unlike upstream which uses ESM. Among other things, it means that you can wrap apps that use this module into native binaries using [Nexe](https://github.com/nexe/nexe).
+
+## License
+
+Commits up to and including 8efedd5d0946f23c7e386ce44586a7e384a1635c are licensed under BSD-2-Clause by the original author. Commits from and including 18a8d15ef8e63e601ee723d09fd435dd1ee2bed9 are licensed under AGPL version 3.0 or later.
+
+__We now return to the regular upstream documentation…__
+
+---
 
 [WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API) endpoints for [Express](http://expressjs.com/) applications. Lets you define WebSocket endpoints like any other type of route, and applies regular Express middleware. The WebSocket support is implemented with the help of the [ws](https://github.com/websockets/ws) library.
 
@@ -134,3 +212,4 @@ Routes are bound to the wsInstance so you can access `.getWss()`, `.setRoom()`, 
 ## Development
 
 This module is written in ES6 and uses ESM.
+

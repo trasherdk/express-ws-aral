@@ -3,14 +3,14 @@
  *
  * Here be dragons. */
 
-import http from 'http';
-import express from 'express';
-import ws from 'ws';
+const http = require('http');
+const express = require('express');
+const ws = require('ws');
 
-import websocketUrl from './websocket-url';
-import addWsMethod from './add-ws-method';
+const websocketUrl = require('./websocket-url');
+const addWsMethod = require('./add-ws-method');
 
-export default function expressWs(app, httpServer, options = {}) {
+module.exports = function expressWs(app, httpServer, options = {}) {
   let server = httpServer;
 
   if (server === null || server === undefined) {
